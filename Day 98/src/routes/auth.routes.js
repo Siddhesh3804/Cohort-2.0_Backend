@@ -1,6 +1,7 @@
 const express = require("express");
 const userModel = require("../models/user.model");
 const jwt = require("jsonwebtoken");
+const crypto = require("crypto");
 
 const authRouter = express.Router();
 
@@ -14,8 +15,10 @@ authRouter.post("/register", async (req,res) => {
         });
     }
 
+    const hash = crypto.createHash("md5").update(password).digest("hex");
+
     const user = await userModel.create({
-        name, email, password
+        name, email, password:hash
     });
 
     const token = jwt.sign({
@@ -42,7 +45,7 @@ authRouter.post("/login", async (req,res) => {
         })
     }   
 
-    const isPasswordMatched = await user.password === password;
+    const isPasswordMatched = await user.password === crypto.createHash("md5").update(password).digest("hex");
     if(!isPasswordMatched){
         return res.status(401).json({
             message : "Invalid Password"
