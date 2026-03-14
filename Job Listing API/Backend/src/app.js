@@ -1,7 +1,10 @@
 const express = require("express");
+const cors = require("cors");   
 const jobModel = require("./models/jobs.model");
+
 const app = express();
 
+app.use(cors());               
 app.use(express.json());
 
 app.post("/api/jobs", async (req, res) => {
