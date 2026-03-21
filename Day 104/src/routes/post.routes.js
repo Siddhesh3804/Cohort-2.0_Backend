@@ -5,11 +5,11 @@ const upload = multer({ storage: multer.memoryStorage() })
 
 const postRouter = express.Router();
 
-/* POST /api/posts [Protected]
+/* POST /api/posts/ [Protected]
  - req.body = { caption, imageFile } */
 postRouter.post("/", upload.single("Image"), postController.createPostController);
 
-/* GET /api/posts [Protected]*/
+/* GET /api/posts/ [Protected]*/
 postRouter.get("/", postController.getPostController);
 
 /* GET /api/posts/details/:postId 
