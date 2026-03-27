@@ -10,4 +10,12 @@ const identifyUser = require("../middlewares/auth.middleware");
  */
 userRouter.post("/follow/:username", identifyUser, userController.followUserController);
 
+
+/*
+ * @route POST /api/users/unfollow/:username
+ * @description Unfollow a user
+ * @access Private 
+ */
+userRouter.post("/unfollow/:username", identifyUser, userController.unfollowUserController);
+
 module.exports = userRouter;
